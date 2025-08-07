@@ -29,10 +29,18 @@ def predict_salary_and_plot(years_experience):
 
     # Create matplotlib figure
     fig, ax = plt.subplots(figsize=(8, 4))
+    
+    # Plot actual dataset points
+    ax.scatter(X, y, color='#ffa500', label='Actual Data', alpha=0.7)
+    
+    # Plot prediction line
     ax.plot(X_plot, y_plot, label='Prediction Line', color='#2a52be')
+    
+    # Highlight predicted salary for input years
     ax.scatter([years_experience], [predicted_salary], color='#db4545', label='Input Prediction', zorder=5)
+    
     ax.set_xlabel('Years of Experience')
-    ax.set_ylabel('Predicted Salary ($)')
+    ax.set_ylabel('Salary ($)')
     ax.set_title('Salary Prediction vs Years of Experience')
     ax.legend()
     ax.grid(True)
