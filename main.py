@@ -2,25 +2,49 @@ import gradio as gr
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
-
-# Dummy fallback for illustration if you lack Salary_Data.csv
-# Remove/comment this and use your own CSV file in production!
+import matplotlib.pyplot as plt
 import numpy as np
-np.random.seed(1)
-dataset = pd.DataFrame({
-    "YearsExperience": np.linspace(1, 10, 30),
-    "Salary": np.linspace(40000, 120000, 30) + np.random.normal(0, 3000, 30)
-})
+import io
+from PIL import Image
+
+# Load dataset
+dataset = pd.read_csv("Salary_Data.csv")
 
 X = dataset.iloc[:, :-1]
 y = dataset.iloc[:, -1]
+
+# Train/test split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1)
 model = LinearRegression()
 model.fit(X_train, y_train)
 
-def predict_salary(years_experience):
-    predicted_salary = model.predict([[years_experience]])[0]
-    return f"${predicted_salary:,.2f}"
+def predict_salary_and_plot(years_experience):
+    # Create DataFrame for prediction input with correct column name
+    input_df = pd.DataFrame([[years_experience]], columns=X.columns)
+    predicted_salary = model.predict(input_df)[0]
+
+    # Generate prediction curve on a smooth range
+    X_plot = pd.DataFrame(np.linspace(0, 50, 200), columns=X.columns)
+    y_plot = model.predict(X_plot)
+
+    # Create matplotlib figure
+    fig, ax = plt.subplots(figsize=(8, 4))
+    ax.plot(X_plot, y_plot, label='Prediction Line', color='#2a52be')
+    ax.scatter([years_experience], [predicted_salary], color='#db4545', label='Input Prediction', zorder=5)
+    ax.set_xlabel('Years of Experience')
+    ax.set_ylabel('Predicted Salary ($)')
+    ax.set_title('Salary Prediction vs Years of Experience')
+    ax.legend()
+    ax.grid(True)
+
+    # Save plot to a bytes buffer and convert to PIL Image for Gradio
+    buf = io.BytesIO()
+    plt.savefig(buf, format='png')
+    plt.close(fig)
+    buf.seek(0)
+    img = Image.open(buf)
+
+    return f"${predicted_salary:,.2f}", img
 
 with gr.Blocks(css="""
 body {
@@ -86,12 +110,14 @@ body {
     with gr.Column(elem_id="main-card"):
         gr.Markdown(
             '<div class="heading">SALARY PREDICTION</div>'
-            '<div class="subtitle">Linear regression model</div>',
+            '<div class="subtitle">Linear regression model with graph</div>',
         )
         years_exp = gr.Number(label="Years of Experience", value=5, minimum=0, maximum=50, precision=0, elem_id='years-exp')
         predict_btn = gr.Button("Predict", elem_id="predict-button")
-        output = gr.Textbox(label="Predicted Salary", elem_id="salary-output", show_label=True)
-        predict_btn.click(fn=predict_salary, inputs=years_exp, outputs=output)
+        output = gr.Textbox(label="Predicted Salary", elem_id="salary-output", interactive=False, show_label=True)
+        plot_image = gr.Image(type="pil", label="Prediction Plot")
         
+        predict_btn.click(fn=predict_salary_and_plot, inputs=years_exp, outputs=[output, plot_image])
+
 if __name__ == "__main__":
     demo.launch(share=True)
