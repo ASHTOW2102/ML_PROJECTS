@@ -42,7 +42,4 @@ Each project is designed to help you understand:
 git clone https://github.com/ASHTOW2102/ML_PROJECTS.git
 
 # Navigate into the project folder
-cd ML_PROJECTS
-
-# Open the folder in VS Code
-code .
+cd (choose the project which you want to access)
