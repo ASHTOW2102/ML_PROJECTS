@@ -1,88 +1,67 @@
-SalaryScout
-SalaryScout is a lightweight Hugging Face Space that lets you predict a person's salary based on their years of experience using a simple linear regression model. It’s perfect for demonstrating core regression concepts in an interactive way.
 
-Key Features
-Simple linear regression: Trains a model using years of experience (independent variable) to predict salary (dependent variable).
+# 🧠 SalaryScout
 
-Interactive interface: Built with Gradio (or your preferred framework) to allow users to input experience values and instantly see salary predictions.
+> Predict salary based on experience using Simple Linear Regression  
+> A minimal, interactive ML demo hosted on Hugging Face Spaces
 
-Educational purpose: Helps users grasp how linear regression works—including the slope and intercept of the fitted line.
+---
 
-Live demo: Users can experiment by inputting different experience values to see how the prediction changes.
+## 📌 Features
 
-How It Works
-The model fits a line of the form:
+- 🔹 Simple Linear Regression with `scikit-learn`
+- 🔹 Interactive UI using Gradio
+- 🔹 Real-time salary predictions
+- 🔹 Ideal for beginners & educational purposes
 
-text
-Copy
-Edit
+---
+
+## 🚀 Live Demo
+
+👉 Try it out on [Hugging Face](https://huggingface.co/spaces/ASHCHAT/SalaryScout)
+
+---
+
+## 📈 Model Overview
+
+The model is based on the equation:  
 salary = m * experience + c
-where:
 
-m = slope (amount salary changes per year of experience)
 
-c = intercept (base salary with zero years of experience)
+- `m`: slope (increment per year of experience)  
+- `c`: base salary with zero experience  
 
-Uses Ordinary Least Squares (OLS) to minimize the sum of squared errors between actual salary data and predictions 
-Wikipedia
-+1
-.
+Trained using ordinary least squares (OLS) to minimize prediction error.
 
-Once trained, the model predicts salary for new input values.
+---
 
-Getting Started
-Prerequisites
-Python 3.x
+## ⚙️ Tech Stack
 
-Required Python packages: gradio, scikit-learn, pandas, numpy (add these to requirements.txt)
+- Python 3.x  
+- `scikit-learn`  
+- `gradio`  
+- `pandas`, `numpy`  
 
-Steps
-Clone the repository:
+---
 
-bash
-Copy
-Edit
+## 🧪 How to Run Locally
+
+# Clone the repo
 git clone https://huggingface.co/spaces/ASHCHAT/SalaryScout
-Install dependencies:
 
-bash
-Copy
-Edit
+# Navigate into project
+cd SalaryScout
+
+# Install dependencies
 pip install -r requirements.txt
-Run the app locally (if using Gradio, adjust accordingly if another framework is used):
 
-bash
-Copy
-Edit
-python app.py
-The Space will launch locally—input the years of experience and get predicted salary instantly.
+# Run the app
+python main.py
 
-To deploy or update on Hugging Face:
+📊 Sample Input/Output
+| Experience (years) | Predicted Salary |
+| ------------------ | ---------------- |
+| 1                  | ₹30,000          |
+| 5                  | ₹55,000          |
+| 10                 | ₹80,000          |
 
-bash
-Copy
-Edit
-git add .
-git commit -m "Add simple linear regression app"
-git push
-Model Insights
-With simple linear regression, you can evaluate performance using metrics such as:
 
-R² (coefficient of determination): Indicates model fit—closer to 1 is better.
-
-Mean Squared Error (MSE) and Root Mean Squared Error (RMSE): Measure average squared (or square root) prediction error 
-GitHub
-+1
-.
-
-Demo Usage
-Input: Number of years of experience (e.g., 3, 5, 10)
-
-Output: Predicted salary (e.g., ₹35,000)
-
-Why It Matters
-Demonstrates the fundamentals of regression analysis.
-
-Offers an intuitive way to see the impact of experience on salary.
-
-Great for educational projects, interviews, or portfolio showcasing how ML can be applied in real-world scenarios.
