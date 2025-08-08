@@ -55,12 +55,9 @@ cd Salary_Predictor/Salary_Predictor(SimpleLinearRegression)
 # Install dependencies
 pip install -r requirements.txt
 
-# Train the model (if not already trained)
-python train_model.py
-
 # Launch the app
 python main.py
-
+```
 
 📊 Sample Input/Output
 | Experience (years) | Predicted Salary |
