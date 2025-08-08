@@ -45,17 +45,22 @@ Trained using ordinary least squares (OLS) to minimize prediction error.
 
 ## 🧪 How to Run Locally
 
+```bash
 # Clone the repo
-git clone https://huggingface.co/spaces/ASHCHAT/SalaryScout
+git clone https://github.com/ASHTOW2102/Salary_Predictor.git
 
-# Navigate into project
-cd SalaryScout
+# Navigate to project folder
+cd Salary_Predictor/Salary_Predictor(SimpleLinearRegression)
 
 # Install dependencies
 pip install -r requirements.txt
 
-# Run the app
+# Train the model (if not already trained)
+python train_model.py
+
+# Launch the app
 python main.py
+
 
 📊 Sample Input/Output
 | Experience (years) | Predicted Salary |
