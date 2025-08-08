@@ -21,9 +21,7 @@ This time:
 - **Python 3.x**
 - `numpy`
 - `pandas`
-- `matplotlib` *(optional, if you want to visualize)*
 - `scikit-learn`
-- `statsmodels`
 
 ---
 
