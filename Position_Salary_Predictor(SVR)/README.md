@@ -1,5 +1,5 @@
 ---
-title: PositionSalaryPredictor
+title: Position_Salary_PredictorSVR
 app_file: main.py
 sdk: gradio
 sdk_version: 5.41.1

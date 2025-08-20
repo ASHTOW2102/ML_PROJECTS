@@ -1,7 +1,7 @@
 import gradio as gr
 import pandas as pd
-from sklearn.linear_model import LinearRegression
-from sklearn.preprocessing import PolynomialFeatures
+from sklearn.svm import SVR
+from sklearn.preprocessing import StandardScaler
 
 # ====== Load dataset ======
 dataset = pd.read_csv("Position_Salaries.csv")  
@@ -15,32 +15,34 @@ def get_level_from_position(position):
     """Given a position, return its numeric level."""
     return position_to_level.get(position, None)
 
-def predict_with_degree(position, degree):
-    """Predict salary for given position and show actual vs predicted table."""
-    # Ensure degree is int
-    try:
-        degree = int(degree)
-    except:
-        return "Degree must be integer", None, None
-
+def predict_with_svr(position):
+    """Predict salary for given position using SVR (RBF kernel)."""
     # Prepare data
-    X = dataset[["Level"]]
-    y = dataset["Salary"]
-    
-    # Train polynomial regression with custom degree
-    poly_reg = PolynomialFeatures(degree=degree)
-    X_poly = poly_reg.fit_transform(X)
-    lin_reg = LinearRegression()
-    lin_reg.fit(X_poly, y)
+    X = dataset[["Level"]].values
+    y = dataset["Salary"].values.reshape(-1, 1)
+
+    # Scaling
+    sc_x = StandardScaler()
+    sc_y = StandardScaler()
+    X = sc_x.fit_transform(X)
+    y = sc_y.fit_transform(y)
+
+    # RBF SVR model
+    regressor = SVR(kernel="rbf")
+    regressor.fit(X, y.ravel())
 
     # Predict for all positions
-    predicted_all = lin_reg.predict(X_poly)
+    predicted_all = sc_y.inverse_transform(
+        regressor.predict(X).reshape(-1, 1)
+    ).ravel()
 
     # Predict for selected position
     level = get_level_from_position(position)
     if level is None:
         return "Position not found", None, None
-    predicted_salary = lin_reg.predict(poly_reg.transform([[level]]))[0]
+    predicted_salary = sc_y.inverse_transform(
+        regressor.predict(sc_x.transform([[level]])).reshape(-1, 1)
+    )[0, 0]
 
     # Create results dataframe
     results_df = pd.DataFrame({
@@ -56,7 +58,7 @@ default_position = dataset["Position"].iloc[0]
 default_level = position_to_level[default_position]
 
 # ====== Gradio UI ======
-with gr.Blocks(css="""
+with gr.Blocks(css=""" 
 body {
     background: radial-gradient(circle at top left, #43cea2 0%, #185a9d 100%);
     min-height: 100vh;
@@ -108,15 +110,13 @@ body {
 
     with gr.Column(elem_id="main-card"):
         gr.Markdown('<div class="heading">Salary Prediction</div>'
-                    '<div class="subtitle">Polynomial Regression (Custom Degree)</div>')
+                    '<div class="subtitle">SVR (RBF Kernel)</div>')
 
         position_input = gr.Dropdown(
             choices=dataset["Position"].tolist(),
             label="Select Position",
             value=default_position
         )
-
-        degree_input = gr.Number(label="Polynomial Degree", value=4, precision=0)
 
         level_output = gr.Number(label="Level", interactive=False, value=default_level)
 
@@ -135,8 +135,8 @@ body {
                               position_input, level_output)
 
         # Predict salary + table
-        predict_btn.click(fn=predict_with_degree,
-                          inputs=[position_input, degree_input],
+        predict_btn.click(fn=predict_with_svr,
+                          inputs=[position_input],
                           outputs=[salary_output, level_output, results_table])
 
 if __name__ == "__main__":
