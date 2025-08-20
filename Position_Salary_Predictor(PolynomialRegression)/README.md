@@ -1,9 +1,3 @@
----
-title: Position_Salary_PredictorSVR
-app_file: main.py
-sdk: gradio
-sdk_version: 5.41.1
----
 
 > Predict salaries based on job position level using **Polynomial Regression**  
 > A minimal, interactive ML demo hosted on Hugging Face Spaces
