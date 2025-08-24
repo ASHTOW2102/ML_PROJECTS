@@ -18,7 +18,7 @@ A minimal, interactive ML demo hosted on Hugging Face Spaces.
 
 ## 🚀 Live Demo
 
-👉 Try it out on Hugging Face: [Position Salary Predictor (Random Forest)](https://huggingface.co/spaces/AshishChaturvedi7/Position_Salary_PredictorRegressionTree)
+👉 Try it out on Hugging Face: [Position Salary Predictor (Random Forest)]([https://huggingface.co/spaces/AshishChaturvedi7/Position_Salary_PredictorRegressionTree](https://huggingface.co/spaces/AshishChaturvedi7/RegressionTree))
 
 ---
 
