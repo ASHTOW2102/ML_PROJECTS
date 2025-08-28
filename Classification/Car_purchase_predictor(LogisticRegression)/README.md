@@ -1,57 +1,53 @@
-# 💼 Position Salary Predictor (Random Forest)
+# Car Purchase Predictor (Logistic Regression)
 
-Predict salaries based on job position levels using **Random Forest Regression**.  
-A minimal, interactive ML demo hosted on Hugging Face Spaces.
-
----
-
-## 📌 Features
-
-- Random Forest Regression with scikit-learn
-- Multiple decision trees combined for stable and accurate predictions
-- Interactive UI using Gradio
-- Real-time salary predictions
-- Avoids overfitting by averaging across many trees
-- Great for understanding **ensemble learning**
+A simple, interactive ML demo that predicts whether a customer will purchase a car based on **Age** and **Salary**, implemented using **Logistic Regression** and deployed on Hugging Face Spaces.
 
 ---
 
-## 🚀 Live Demo
+## Features
 
-👉 Try it out on Hugging Face: [Position Salary Predictor (Random Forest)](https://huggingface.co/spaces/AshishChaturvedi7/Position_Salary_PredictorRegressionTree)
-
----
-
-## 📈 Model Overview
-
-This model uses **Random Forest Regression**, which is an **ensemble method**.  
-Instead of relying on a single decision tree, Random Forest builds multiple trees and averages their predictions.
-
-Key points:
-
-- `n_estimators` → number of trees in the forest (more trees generally increase accuracy but may cause overfitting if too large).
-- Helps reduce variance and improves generalization.
-- Performance evaluated using **R² score**.
+- **Logistic Regression** using scikit-learn
+- Predicts categorical outcomes (Purchased: Yes or No)
+- Uses a **sigmoid function** to map model outputs to probabilities between 0 and 1
+- Predictions based on maximum likelihood estimation
+- Real-time prediction interface with Gradio
+- Evaluation with **Confusion Matrix** and **Accuracy Score** displayed for the test set
 
 ---
 
-## ⚙️ Tech Stack
+## Live Demo
 
-- Python 3.x
-- scikit-learn
-- gradio
-- pandas, numpy
+Check it out on Hugging Face:  
+[Car Purchase Predictor (Logistic Regression)](https://huggingface.co/spaces/AshishChaturvedi7/LogisiticRegression)
 
 ---
 
-## 🧪 How to Run Locally
+## Model Overview
+
+- Logistic Regression fits an **S-shaped (sigmoid) curve** to model the probability of purchase
+- Optimizes parameters using **maximum likelihood estimation**
+- Converts probabilities to predictions using a 0.5 threshold (≥ 0.5 → Yes, else No)
+- Evaluates performance using a **Confusion Matrix** and **Accuracy Score**
+
+---
+
+## Tech Stack
+
+- **Python 3.x**
+- **scikit-learn**
+- **Gradio**
+- **pandas**, **numpy**
+
+---
+
+## Run Locally
 
 ```bash
 # Clone the repo
 git clone https://github.com/ASHTOW2102/ML_PROJECTS.git
 
-# Navigate to project folder
-cd ML_PROJECTS/Position_Salary_Predictor(RandomeForestTree)
+# Navigate to the project folder
+cd ML_PROJECTS/Classification/Car_purchase_predictor(LogisticRegression)
 
 # Install dependencies
 pip install -r requirements.txt
