@@ -1,44 +1,34 @@
-# Car Purchase Predictor (Logistic Regression)
+# Car Purchase Predictor (K-Nearest Neighbors)
 
-A simple, interactive ML demo that predicts whether a customer will purchase a car based on **Age** and **Salary**, implemented using **Logistic Regression** and deployed on Hugging Face Spaces.
-
----
+A simple ML demo that predicts whether a customer will purchase a car based on Age and Salary, implemented using K-Nearest Neighbors (KNN) and deployed on Hugging Face Spaces.
 
 ## Features
 
-- **Logistic Regression** using scikit-learn
+- K-Nearest Neighbors using scikit-learn
 - Predicts categorical outcomes (Purchased: Yes or No)
-- Uses a **sigmoid function** to map model outputs to probabilities between 0 and 1
-- Predictions based on maximum likelihood estimation
+- Uses Euclidean distance (p=2) to measure similarity
+- Decision made by majority voting among k nearest neighbors
 - Real-time prediction interface with Gradio
-- Evaluation with **Confusion Matrix** and **Accuracy Score** displayed for the test set
-
----
+- Evaluation with Confusion Matrix and Accuracy Score for the test set
 
 ## Live Demo
 
-Check it out on Hugging Face:  
-[Car Purchase Predictor (Logistic Regression)](https://huggingface.co/spaces/AshishChaturvedi7/LogisiticRegression)
-
----
+[Car Purchase Predictor (KNN)](https://huggingface.co/spaces/AshishChaturvedi7/Car_purchase_predictorKNN)
 
 ## Model Overview
 
-- Logistic Regression fits an **S-shaped (sigmoid) curve** to model the probability of purchase
-- Optimizes parameters using **maximum likelihood estimation**
-- Converts probabilities to predictions using a 0.5 threshold (≥ 0.5 → Yes, else No)
-- Evaluates performance using a **Confusion Matrix** and **Accuracy Score**
-
----
+- KNN is a non-parametric, instance-based learning algorithm
+- Classifies a new data point by looking at the k nearest neighbors
+- Uses a distance metric (Euclidean or Minkowski) to find nearest points
+- Final prediction is based on majority class vote
+- Performance evaluated using Confusion Matrix and Accuracy Score
 
 ## Tech Stack
 
-- **Python 3.x**
-- **scikit-learn**
-- **Gradio**
-- **pandas**, **numpy**
-
----
+- Python 3.x
+- scikit-learn
+- Gradio
+- pandas, numpy
 
 ## Run Locally
 
@@ -47,7 +37,7 @@ Check it out on Hugging Face:
 git clone https://github.com/ASHTOW2102/ML_PROJECTS.git
 
 # Navigate to the project folder
-cd ML_PROJECTS/Classification/Car_purchase_predictor(LogisticRegression)
+cd ML_PROJECTS/Classification/Car_purchase_predictorKNN
 
 # Install dependencies
 pip install -r requirements.txt
